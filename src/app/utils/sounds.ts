@@ -17,17 +17,26 @@ export const loadSound = (sound: sounds) => {
         "bgm": "bgm.mp3",
     }
 
-    return new Audio(`${src}${sounds[sound]}`);
+    const audio = new Audio(`${src}${sounds[sound]}`);
+    audio.preload = "auto";
+    return audio;
 }
 
 export const playLoadedSound = (audio: HTMLAudioElement | undefined, isSoundEnabled: boolean, isLoop: boolean = false) => {
     if (isSoundEnabled && audio) {
         if (isLoop) audio.loop = true;
 
-        audio.preload = "auto";
         audio.volume = 0.2;
 
-        audio.play().catch(console.error);
+        audio.play().catch(() => {
+            if (!isLoop) return;
+            // Autoplay was blocked; retry on the next user gesture
+            const resume = () => {
+                if (audio.loop) audio.play().catch(console.error);
+            };
+            document.addEventListener('click', resume, { once: true });
+            document.addEventListener('keydown', resume, { once: true });
+        });
     }
 }
 

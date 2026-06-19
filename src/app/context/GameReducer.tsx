@@ -106,7 +106,7 @@ export const initialState: GameState = {
     isCardGalleryOpen: false,
     isRewardSelectionOpen: false,
     isGameActive: false,
-    isSoundEnabled: false,
+    isSoundEnabled: true,
     slideDirection: null,
     currentPages: { "players": 1, "cards": 1, "locations": 1, "cardGallery": 1 },
     rules: ["open"],
