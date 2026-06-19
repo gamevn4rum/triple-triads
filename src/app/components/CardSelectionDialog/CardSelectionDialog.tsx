@@ -26,7 +26,7 @@ interface CardSelectionDialogProps {
 const ITEMS_PER_PAGE = 11;
 
 const CardSelectionDialog: React.FC<CardSelectionDialogProps> = ({ showPreview = true, showMissingCards = false, modifier, pagination = "cards", onCancel }) => {
-    const { playerCards, currentPlayerCards, previewCardId, currentPlayerHand, enemyId, lostCards, score, isCardSelectionOpen, isCardGalleryOpen, isSoundEnabled, currentPages, slideDirection, rules, dispatch } = useGameContext();
+    const { playerCards, currentPlayerCards, previewCardId, currentPlayerHand, enemyId, lostCards, isCardSelectionOpen, isCardGalleryOpen, isSoundEnabled, currentPages, slideDirection, rules, dispatch } = useGameContext();
 
     const hand: CardType[] = [...currentPlayerHand];
     const allCards: Record<number, number> = Object.fromEntries(
@@ -63,7 +63,6 @@ const CardSelectionDialog: React.FC<CardSelectionDialogProps> = ({ showPreview =
             const card = generateCardFromId(cardId, "blue");
             if (card) hand.push(card);
 
-            score[1] += 1;
             cards[cardId] -= 1;
         }
         if (currentPlayerHand.length < 5) {
@@ -87,7 +86,6 @@ const CardSelectionDialog: React.FC<CardSelectionDialogProps> = ({ showPreview =
 
     const handleDenial = () => {
         hand.length = 0;
-        score[1] = 0;
 
         playSound("back", isSoundEnabled);
 

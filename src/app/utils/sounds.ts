@@ -45,7 +45,7 @@ const playSound = (soundName: sounds, isSoundEnabled: boolean, isloop: boolean =
     if (isSoundEnabled && audio) {
         if (isloop) audio.loop = true;
         audio.volume = 0.2;
-        audio.play()
+        audio.play().catch(console.error);
     }
 }
 

@@ -84,7 +84,7 @@ function GameContent() {
       stopLoadedSound(victorySoundRef.current);
     } else {
       if (!winState) {
-        playLoadedSound(bgmRef.current, isSoundEnabled, true);
+        playLoadedSound(bgmRef.current, toggle, true);
       }
     }
 

@@ -15,10 +15,12 @@ const WinDialog: React.FC<WinDialogProps> = ({ victorySound, bgm }) => {
     const { winState, playerCards, currentEnemyHand, currentPlayerHand, isSoundEnabled, board, rules, dispatch } = useGameContext();
     const playerCardsCopy = { ...playerCards };
 
-    if (winState === "blue") {
-        stopLoadedSound(bgm);
-        playLoadedSound(victorySound, isSoundEnabled);
-    }
+    useEffect(() => {
+        if (winState === "blue") {
+            stopLoadedSound(bgm);
+            playLoadedSound(victorySound, isSoundEnabled);
+        }
+    }, [winState]);
 
     const getCardIdsFromBoard = (player: PlayerType) => {
         return board
