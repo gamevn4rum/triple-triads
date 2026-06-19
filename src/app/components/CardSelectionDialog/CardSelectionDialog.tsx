@@ -153,7 +153,6 @@ const CardSelectionDialog: React.FC<CardSelectionDialogProps> = ({ showPreview =
                 const removed = newHand.pop();
                 const newCards = { ...currentPlayerCards };
                 if (removed) newCards[removed.cardId] = (newCards[removed.cardId] ?? 0) + 1;
-                score[1] -= 1;
                 playSound("back", isSoundEnabled);
                 dispatch({ type: "SET_CURRENT_PLAYER_HAND", payload: newHand });
                 dispatch({ type: "SET_CURRENT_PLAYER_CARDS", payload: newCards });
