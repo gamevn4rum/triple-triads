@@ -1,0 +1,35 @@
+@use "../../styles/dialog.module.scss";
+
+.locationSelectionDialog {
+    @extend .dialog;
+    position: absolute;
+    top: calc(50% + 186px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 380px;
+    height: 46px;
+
+    h3,
+    p {
+        text-align: center;
+        margin: 0;
+    }
+
+    &>div {
+        margin-top: -5px;
+    }
+
+    &[data-focused=true]::after {
+        content: "";
+        position: absolute;
+        left: 24px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-image: url("#{$basePath}/assets/cursor.png");
+        background-size: cover;
+        width: 45px;
+        height: 28px;
+        z-index: 4;
+        image-rendering: pixelated;
+    }
+}

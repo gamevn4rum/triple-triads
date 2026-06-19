@@ -1,0 +1,170 @@
+@use "sass:math";
+
+.card {
+    border: 1px solid #000;
+    width: 128px; //256px
+    height: 163px; //326px
+    transform-style: preserve-3d;
+    transition: transform 0.2s;
+
+    &[data-player=red] {
+        background: linear-gradient(to top, rgba(131, 48, 66, 1) 0%, rgba(235, 186, 208, 1) 100%);
+    }
+
+    &[data-player=blue] {
+        background: linear-gradient(to top, rgba(51, 66, 135, 1) 0%, rgba(185, 209, 235, 1) 100%);
+    }
+
+    &__front {
+        background-image: url("#{$basePath}/assets/sprites.png");
+        image-rendering: pixelated;
+        height: 100%;
+        background-size: 1568px 1498px;
+        backface-visibility: hidden;
+        transform-style: preserve-3d;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+            background-image: url("#{$basePath}/assets/cardback.png");
+            transform: rotateY(180deg);
+            background-size: cover;
+        }
+
+        $startX: 5;
+        $startY: 5;
+        $x: 144;
+        $y: 149.75;
+        $cardsPerRow: 11;
+
+        @mixin card-position($id) {
+            $row: math.floor(calc(($id - 1) / $cardsPerRow));
+            $col: (
+                $id - 1) % $cardsPerRow;
+
+            &[data-card-id="#{$id}"] {
+                background-position: #{"#{$startX - ($x * $col)}px"} #{"#{$startY - ($y * $row)}px"};
+
+            }
+        }
+
+        @for $i from 1 through 110 {
+            @include card-position($i
+        );
+    }
+
+    &::after {
+        content: "";
+        background-image: url("#{$basePath}/assets/frames.png");
+        image-rendering: pixelated;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-size: 633px 161px;
+        backface-visibility: hidden;
+    }
+
+    &[data-level="6"],
+    &[data-level="7"] {
+        &::after {
+            background-position-x: -127px;
+        }
+    }
+
+    &[data-level="8"],
+    &[data-level="9"] {
+        &::after {
+            background-position-x: -253px;
+        }
+    }
+
+    &[data-level="10"] {
+        &::after {
+            background-position-x: -380px;
+        }
+    }
+
+    &[data-gallery=true] {
+        &::after {
+            background-position-x: -507px;
+        }
+    }
+}
+
+&__back {
+    transform: rotateY(180deg);
+    width: 100%;
+    height: 100%;
+
+    img {
+        image-rendering: pixelated;
+    }
+}
+
+&--hidden {
+    transform: rotateY(180deg);
+}
+
+p {
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    font-size: 8px;
+}
+
+.element {
+    background-image: url("#{$basePath}/assets/elements-spritesheet.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-indent: -10000px;
+    position: absolute;
+    width: 29px;
+    height: 34px;
+    top: 8px;
+    right: 7px;
+    image-rendering: pixelated;
+
+    &[data-sprite="thunder"] {
+        background-position-x: 0;
+    }
+
+    &[data-sprite="earth"] {
+        background-position-x: -29px;
+    }
+
+    &[data-sprite="ice"] {
+        background-position-x: -58px;
+    }
+
+    &[data-sprite="wind"] {
+        background-position-x: -87px;
+        width: 28px;
+    }
+
+    &[data-sprite="poison"] {
+        background-position-x: -115px;
+        width: 25px;
+    }
+
+    &[data-sprite="fire"] {
+        background-position-x: -141px;
+    }
+
+    &[data-sprite="water"] {
+        background-position-x: -169px;
+    }
+
+    &[data-sprite="holy"] {
+        background-position-x: -197px;
+    }
+}
+}

@@ -1,0 +1,37 @@
+{
+    "none": [],
+    "balamb": [
+        "open"
+    ],
+    "galbadia": [
+        "same"
+    ],
+    "dollet": [
+        "random",
+        "elemental"
+    ],
+    "fishermansHorizon": [
+        "elemental",
+        "suddenDeath"
+    ],
+    "centra": [
+        "same",
+        "plus",
+        "random"
+    ],
+    "trabia": [
+        "random",
+        "plus"
+    ],
+    "esthar": [
+        "elemental"
+    ],
+    "lunar": [
+        "open",
+        "sameWall",
+        "plus",
+        "random",
+        "elemental",
+        "suddenDeath"
+    ]
+}

@@ -1,0 +1,135 @@
+.dialog {
+    background: linear-gradient(125deg, #434546, #696c69);
+    box-shadow: inset 1px 1px 0px 1px #7c7f7e, inset -1px -1px 1px 1px #363536;
+    outline: 2px solid #000;
+    color: #fff;
+    padding: 16px 18px 14px;
+    z-index: 3;
+
+    li {
+        list-style: none;
+    }
+
+    button {
+        text-align: center;
+        text-shadow: 2px 2px 0 #212121;
+
+        &[data-focused=true] {
+            &::after {
+                content: "";
+                position: absolute;
+                left: -55px;
+                background-image: var(--dialog-cursor-img);
+                background-size: cover;
+                width: 45px;
+                height: 28px;
+                margin-top: -18px;
+                z-index: 4;
+                image-rendering: pixelated;
+            }
+        }
+    }
+
+    .meta {
+        text-indent: -10000%;
+        background: var(--dialog-meta-spritesheet);
+        background-size: 257px 32px;
+        image-rendering: pixelated;
+        height: 9px;
+        position: absolute;
+        top: 0;
+        left: 8px;
+
+        &[data-sprite="p."] {
+            width: 10px;
+            background-position: 0px -1px;
+            left: 43px;
+        }
+
+        &[data-sprite="1"] {
+            width: 9px;
+            background-position: -22px -1px;
+        }
+
+        &[data-sprite="2"] {
+            width: 9px;
+            background-position: -33px -1px;
+        }
+
+        &[data-sprite="3"] {
+            width: 9px;
+            background-position: -43px -1px;
+        }
+
+        &[data-sprite="4"] {
+            width: 9px;
+            background-position: -53px -1px;
+        }
+
+        &[data-sprite="5"] {
+            width: 9px;
+            background-position: -63px -1px;
+        }
+
+        &[data-sprite="6"] {
+            width: 9px;
+            background-position: -74px -1px;
+        }
+
+        &[data-sprite="7"] {
+            width: 9px;
+            background-position: -84px -1px;
+        }
+
+        &[data-sprite="8"] {
+            width: 9px;
+            background-position: -94px -1px;
+        }
+
+        &[data-sprite="9"] {
+            width: 9px;
+            background-position: -105px -1px;
+        }
+
+        &[data-sprite="10"] {
+            width: 14px;
+            background-position: -115px -1px;
+        }
+
+        &[data-sprite="num."] {
+            width: 29px;
+            background-position: 0px -12px;
+            left: calc(100% - 55px);
+        }
+
+        &[data-sprite="cards"] {
+            width: 38px;
+            background-position: -30px -12px;
+        }
+
+        &[data-sprite="info."] {
+            width: 29px;
+            background-position: -69px -76px;
+        }
+
+        &[data-sprite="players"] {
+            width: 49px;
+            background-position: -99px -13px;
+        }
+
+        &[data-sprite="choice"] {
+            width: 38px;
+            background-position: -148px -13px;
+        }
+
+        &[data-sprite="location"] {
+            width: 53px;
+            background-position: -187px -13px;
+        }
+
+        &[data-sprite="help"] {
+            width: 28px;
+            background-position: -131px -1px;
+        }
+    }
+}

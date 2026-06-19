@@ -1,0 +1,288 @@
+.board {
+    grid-template-columns: repeat(3, 0fr);
+    margin-left: 0;
+    margin-right: 0;
+
+    &::before {
+        content: "";
+        background-image: url("#{$basePath}/assets/balamb.png");
+        width: 600px;
+        height: 600px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background-position: center;
+        background-size: 600px;
+        background-repeat: no-repeat;
+        mix-blend-mode: soft-light;
+    }
+
+    .cell {
+        width: 128px; //256px
+        height: 163px; //326px
+    }
+
+    div[data-position] {
+        position: relative;
+
+        &::before,
+        &::after {
+            content: "";
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+
+        &[data-position="1,1"]::before {
+            background-image: url("#{$basePath}/assets/slot-center.png");
+            transform: scale(2.75);
+        }
+
+        &[data-position="0,0"]::before {
+            background-image: url("#{$basePath}/assets/slot-corner.png");
+            transform: translate(22%, 16%)scaleX(1.47)scaleY(1.54);
+        }
+
+        &[data-position="0,2"]::before {
+            background-image: url("#{$basePath}/assets/slot-corner.png");
+            transform: translate(-22%, 16%)scaleX(-1.47)scaleY(1.54);
+        }
+
+        &[data-position="2,0"]::before {
+            background-image: url("#{$basePath}/assets/slot-corner.png");
+            transform: translate(22%, -16%)scaleX(1.47)scaleY(-1.54);
+        }
+
+        &[data-position="2,2"]::before {
+            background-image: url("#{$basePath}/assets/slot-corner.png");
+            transform: translate(-22%, -16%)scaleX(-1.47)scaleY(-1.54);
+        }
+
+        >div {
+            z-index: 2;
+        }
+
+        [data-element] {
+            background-image: url("#{$basePath}/assets/elements-spritesheet.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            text-indent: -10000px;
+            position: absolute;
+            width: 29px;
+            height: 34px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            image-rendering: pixelated;
+            opacity: 0.6;
+            animation: bounce 0.4s ease-in-out infinite;
+
+            &[data-sprite="thunder"] {
+                background-position-x: 0;
+            }
+
+            &[data-sprite="earth"] {
+                background-position-x: -29px;
+            }
+
+            &[data-sprite="ice"] {
+                background-position-x: -58px;
+            }
+
+            &[data-sprite="wind"] {
+                background-position-x: -87px;
+                width: 28px;
+            }
+
+            &[data-sprite="poison"] {
+                background-position-x: -114px;
+                width: 26px;
+            }
+
+            &[data-sprite="fire"] {
+                background-position-x: -141px;
+            }
+
+            &[data-sprite="water"] {
+                background-position-x: -169px;
+            }
+
+            &[data-sprite="holy"] {
+                background-position-x: -197px;
+            }
+        }
+
+        [data-state]+[data-sprite] {
+            background-image: url("#{$basePath}/assets/multiplier-spritesheet.png");
+            opacity: 1;
+            animation: none;
+            background-position-x: 0;
+            width: 50px;
+            height: 44px;
+        }
+
+        [element="lightning"]+[data-sprite="lightning"],
+        [element="earth"]+[data-sprite="earth"],
+        [element="ice"]+[data-sprite="ice"],
+        [element="fire"]+[data-sprite="fire"],
+        [element="poison"]+[data-sprite="poison"],
+        [element="wind"]+[data-sprite="wind"],
+        [element="water"]+[data-sprite="water"],
+        [element="holy"]+[data-sprite="holy"] {
+            background-position-x: -64px;
+        }
+    }
+
+
+    // div[data-position] prefix keeps this more specific than the generic
+    // full-size ::before/::after cell overlays above
+    div[data-position][data-focused=true] {
+        &::after {
+            content: "";
+            position: absolute;
+            margin-left: 16px;
+            background-image: url("#{$basePath}/assets/cursor.png");
+            background-size: cover;
+            width: 45px;
+            height: 28px;
+            margin-top: 57px;
+            z-index: 4;
+            image-rendering: pixelated;
+        }
+    }
+
+    [data-state="placed"] {
+        animation: placeCardOnBoard 0.2s ease-out forwards;
+    }
+
+    [data-player=red][data-state="flipped"],
+    [data-player=red][data-state="same"],
+    [data-player=red][data-state="plus"] {
+        transform-style: preserve-3d;
+        animation: card-flip-red 0.4s ease-in-out 0.2s forwards;
+
+        &[data-flip-direction="vertical"] {
+            animation-name: card-flip-vertical-red;
+        }
+    }
+
+    [data-player=red][data-state="combo"] {
+        transform-style: preserve-3d;
+        animation: card-flip-red 0.4s ease-in-out 0.5s forwards;
+
+        &[data-flip-direction="vertical"] {
+            animation-name: card-flip-vertical-red;
+        }
+    }
+
+    [data-player=blue][data-state="flipped"],
+    [data-player=blue][data-state="same"],
+    [data-player=blue][data-state="plus"] {
+        transform-style: preserve-3d;
+        animation: card-flip-blue 0.4s ease-in-out 0.2s forwards;
+
+        &[data-flip-direction="vertical"] {
+            animation-name: card-flip-vertical-blue;
+        }
+    }
+
+    [data-player=blue][data-state="combo"] {
+        transform-style: preserve-3d;
+        animation: card-flip-blue 0.4s ease-in-out 0.5s forwards;
+
+        &[data-flip-direction="vertical"] {
+            animation-name: card-flip-vertical-blue;
+        }
+    }
+}
+
+.selectedCardLabel {
+    bottom: calc(50% - 245px);
+    position: absolute;
+    left: 50%;
+
+    p {
+        text-align: center;
+    }
+}
+
+@keyframes card-flip-blue {
+    50% {
+        transform: rotate3d(0, 1, 0, 0.5turn) scale(1.2);
+        background: linear-gradient(to top, rgba(51, 66, 135, 1) 0%, rgba(185, 209, 235, 1) 100%);
+        z-index: 3;
+    }
+
+    100% {
+        transform: rotate3d(0, 1, 0, 1turn) scale(1);
+        background: linear-gradient(to top, rgba(51, 66, 135, 1) 0%, rgba(185, 209, 235, 1) 100%);
+    }
+}
+
+@keyframes card-flip-red {
+    50% {
+        transform: rotate3d(0, 1, 0, 0.5turn) scale(1.2);
+        background: linear-gradient(to top, rgba(131, 48, 66, 1) 0%, rgba(235, 186, 208, 1) 100%);
+        z-index: 3;
+    }
+
+    100% {
+        transform: rotate3d(0, 1, 0, 1turn) scale(1);
+        background: linear-gradient(to top, rgba(131, 48, 66, 1) 0%, rgba(235, 186, 208, 1) 100%);
+    }
+}
+
+@keyframes card-flip-vertical-blue {
+    50% {
+        transform: rotate3d(1, 0, 0, 0.5turn) scale(1.2);
+        background: linear-gradient(to top, rgba(51, 66, 135, 1) 0%, rgba(185, 209, 235, 1) 100%);
+        z-index: 3;
+    }
+
+    100% {
+        transform: rotate3d(1, 0, 0, 1turn) scale(1);
+        background: linear-gradient(to top, rgba(51, 66, 135, 1) 0%, rgba(185, 209, 235, 1) 100%);
+    }
+}
+
+@keyframes card-flip-vertical-red {
+    50% {
+        transform: rotate3d(1, 0, 0, 0.5turn) scale(1.2);
+        background: linear-gradient(to top, rgba(131, 48, 66, 1) 0%, rgba(235, 186, 208, 1) 100%);
+        z-index: 3;
+    }
+
+    100% {
+        transform: rotate3d(1, 0, 0, 1turn) scale(1);
+        background: linear-gradient(to top, rgba(131, 48, 66, 1) 0%, rgba(235, 186, 208, 1) 100%);
+    }
+}
+
+@keyframes placeCardOnBoard {
+    0% {
+        transform: translateY(-1000px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0% {
+        margin-top: 0;
+    }
+
+    100% {
+        margin-top: -4px;
+    }
+}

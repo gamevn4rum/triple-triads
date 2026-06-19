@@ -1,0 +1,52 @@
+type sounds = "select" | "flip" | "place" | "error" | "spin" | "back" | "success" | "victory" | "bgm";
+
+export const loadSound = (sound: sounds) => {
+    if (typeof window == "undefined") return;
+
+    const src = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/assets/audio/`;
+
+    const sounds = {
+        "select": "select.mp3",
+        "flip": "flip.mp3",
+        "place": "place.mp3",
+        "error": "error.mp3",
+        "spin": "spin.mp3",
+        "back": "back.mp3",
+        "success": "success.mp3",
+        "victory": "victory.mp3",
+        "bgm": "bgm.mp3",
+    }
+
+    return new Audio(`${src}${sounds[sound]}`);
+}
+
+export const playLoadedSound = (audio: HTMLAudioElement | undefined, isSoundEnabled: boolean, isLoop: boolean = false) => {
+    if (isSoundEnabled && audio) {
+        if (isLoop) audio.loop = true;
+
+        audio.preload = "auto";
+        audio.volume = 0.2;
+
+        audio.play().catch(console.error);
+    }
+}
+
+export const stopLoadedSound = (audio: HTMLAudioElement | undefined) => {
+    if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+        audio.loop = false;
+    }
+}
+
+const playSound = (soundName: sounds, isSoundEnabled: boolean, isloop: boolean = false) => {
+    const audio = loadSound(soundName);
+
+    if (isSoundEnabled && audio) {
+        if (isloop) audio.loop = true;
+        audio.volume = 0.2;
+        audio.play()
+    }
+}
+
+export default playSound;

@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --dialog-cursor-img: url("#{$basePath}/assets/cursor.png");
+  --dialog-meta-spritesheet: url("#{$basePath}/assets/meta-spritesheet.png");
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* Clamp the document so layout overflow (a WebKit zoom artifact) can never
+   grow the scrollable area and trigger mobile Safari's shrink-to-fit */
+html {
+  overflow: hidden;
+  height: 100%;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0;
+  text-shadow: 2px 2px 0 #212121;
+  overflow: hidden;
+  display: flex;
+  height: 100vh;
+}
+
+/* No double-tap or pinch zoom; the app scales itself. Safari only honours
+   touch-action on the element actually touched, so apply it everywhere */
+html,
+body,
+body * {
+  touch-action: manipulation;
+}
+
+body.crt-effect::after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: repeating-linear-gradient(0deg, #111 0px, #111 1px, transparent 2px, transparent 5px);
+  background-size: 100% 3px;
+  animation: lines 3s ease-out infinite;
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 11;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: radial-gradient(50% 50%, #fbf8e1 1%, #f4ebdfab 40%, #32313154 100%), radial-gradient(50% 50%, #fbf8e1ee 1%, #fbf8e100 60%), url("#{$basePath}/assets/bg.png");
+  background-blend-mode: soft-light, hard-light;
+  background-size: cover;
+  background-position: center;
+}
+
+p,
+h3,
+li,
+button {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  height: 21px;
+}
+
+button {
+  margin-top: 4px;
+}
+
+@keyframes jitter {
+
+  0%,
+  100% {
+    transform: translateY(-0.25px);
+  }
+
+  50% {
+    transform: translateY(0.25px);
+  }
+}
+
+@keyframes lines {
+  0% {
+    background-position: 0px 0px;
+  }
+
+  100% {
+    background-position: 0px 15px;
+  }
+}

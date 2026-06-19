@@ -1,0 +1,68 @@
+$rotate: -17.5deg;
+$z-offset: 6px;
+
+.indicatorContainer {
+    &[data-type="starting-player-indicator"] {
+        position: absolute;
+        top: calc(50% + 30px);
+        left: calc(50% - 30px);
+        z-index: 4;
+        transform: rotate(90deg)translate(-50%, -50%);
+        transform-origin: top;
+
+        &[data-starting-player="red"] {
+            animation: rotate-red 1.5s ease-in-out forwards;
+        }
+
+        &[data-starting-player="blue"] {
+            animation: rotate-blue 1.5s ease-in-out forwards;
+        }
+    }
+
+    &[data-type="turn-indicator"] {
+        justify-content: center;
+        top: -80px;
+    }
+
+    &[data-type="turn-indicator"] {
+        position: absolute;
+        z-index: 4;
+        animation: fade-in 0.1s linear forwards;
+        opacity: 0;
+
+        &[data-turn-number="1"] {
+            animation-delay: 2s;
+        }
+    }
+}
+
+
+@keyframes rotate-red {
+    from {
+        transform: rotate(90deg) rotateX(0deg) translate(-50%, -50%);
+    }
+
+    to {
+        transform: rotate(90deg) rotateX(1440deg) translate(-50%, -50%);
+    }
+}
+
+@keyframes rotate-blue {
+    from {
+        transform: rotate(90deg) rotateX(0deg) translate(-50%, -50%);
+    }
+
+    to {
+        transform: rotate(90deg) rotateX(1260deg) translate(-50%, -50%);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

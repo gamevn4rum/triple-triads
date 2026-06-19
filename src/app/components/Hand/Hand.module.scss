@@ -1,0 +1,111 @@
+.handContainer {
+    z-index: 1;
+}
+
+.hand {
+    min-height: 557.5px;
+    padding-top: 50px;
+    z-index: 1;
+
+    &[data-player=red] {
+        [data-selected=true] {
+            transform: translateX(50%) !important;
+        }
+    }
+
+    &[data-player=blue] {
+        [data-selected=true] {
+            transform: translateX(-50%) !important;
+        }
+    }
+
+    >div {
+        margin-top: -48%;
+        animation: placeCardInHand 0.15s ease-out forwards;
+    }
+
+    &[data-selectable=true] {
+        z-index: initial;
+
+        [data-player] {
+            box-shadow: inset 0 0 0 1px #fff;
+        }
+    }
+
+    // The shared cursor, shown on whichever hand card is focused
+    // (blue via keyboard/hover, red while the AI picks its card)
+    >div[data-focused=true] [data-player]::after {
+        content: "";
+        position: absolute;
+        top: 16px;
+        left: -36px;
+        background-image: url("#{$basePath}/assets/cursor.png");
+        background-size: cover;
+        width: 45px;
+        height: 28px;
+        margin-top: 50px;
+        z-index: 4;
+        image-rendering: pixelated;
+    }
+}
+
+.score {
+    bottom: -26px;
+    z-index: 4;
+    pointer-events: none;
+    background-image: url("#{$basePath}/assets/score-spritesheet.png");
+    height: 72px;
+    width: 56px;
+    background-size: cover;
+    position: absolute;
+    image-rendering: pixelated;
+    background-repeat: no-repeat;
+
+    &[data-sprite="1"] {
+        background-position-x: 0;
+        width: 50px;
+    }
+
+    &[data-sprite="2"] {
+        background-position-x: -55px;
+    }
+
+    &[data-sprite="3"] {
+        background-position-x: -113px;
+    }
+
+    &[data-sprite="4"] {
+        background-position-x: -175px;
+        width: 52px;
+    }
+
+    &[data-sprite="5"] {
+        background-position-x: -232px;
+    }
+
+    &[data-sprite="6"] {
+        background-position-x: -293px;
+    }
+
+    &[data-sprite="7"] {
+        background-position-x: -355px;
+    }
+
+    &[data-sprite="8"] {
+        background-position-x: -415px;
+    }
+
+    &[data-sprite="9"] {
+        background-position-x: -479px;
+    }
+}
+
+@keyframes placeCardInHand {
+    0% {
+        transform: translateY(1000px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
